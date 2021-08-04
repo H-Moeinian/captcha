@@ -142,6 +142,11 @@ func Verify(id string, digits []byte) bool {
 	return bytes.Equal(digits, reald)
 }
 
+func GetCaptchaValue(id string) string {
+	reald := globalStore.Get(id, true)
+	return string(reald)
+}
+
 // VerifyString is like Verify, but accepts a string of digits.  It removes
 // spaces and commas from the string, but any other characters, apart from
 // digits and listed above, will cause the function to return false.
