@@ -48,6 +48,7 @@ package captcha
 import (
 	"bytes"
 	"errors"
+	"fmt"
 	"io"
 	"time"
 )
@@ -166,5 +167,6 @@ func VerifyString(id string, digits string) bool {
 			return false
 		}
 	}
+	fmt.Println("what is ns ", ns)
 	return Verify(id, ns)
 }
