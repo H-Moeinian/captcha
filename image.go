@@ -35,7 +35,7 @@ type Image struct {
 // given digits, where each digit must be in range 0-9.
 func NewImage(id string, digits []byte, width, height int) *Image {
 	m := new(Image)
-
+	globalStore.Set(id, digits)
 	// Initialize PRNG.
 	m.rng.Seed(deriveSeed(imageSeedPurpose, id, digits))
 
