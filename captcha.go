@@ -46,7 +46,6 @@
 package captcha
 
 import (
-	"bytes"
 	"errors"
 	"fmt"
 	"io"
@@ -133,6 +132,8 @@ func WriteAudio(w io.Writer, id string, lang string) error {
 // The function deletes the captcha with the given id from the internal
 // storage, so that the same captcha can't be verified anymore.
 func Verify(id string, digits []byte) bool {
+	fmt.Println("digits is ", digits)
+
 	if digits == nil || len(digits) == 0 {
 		return false
 	}
@@ -140,7 +141,13 @@ func Verify(id string, digits []byte) bool {
 	if reald == nil {
 		return false
 	}
-	return bytes.Equal(digits, reald)
+	fmt.Println("real data is", reald)
+	for i := 0; i < len(reald); i++ {
+		if reald[i] != digits[i] {
+			return false
+		}
+	}
+	return true
 }
 
 func GetCaptchaValue(id string) string {
