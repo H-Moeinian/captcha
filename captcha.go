@@ -176,6 +176,5 @@ func VerifyString(id string, digits string) bool {
 			return false
 		}
 	}
-	fmt.Println("what is ns ", ns)
 	return Verify(id, ns)
 }
