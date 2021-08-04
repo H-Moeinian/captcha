@@ -145,6 +145,7 @@ func Verify(id string, digits []byte) bool {
 
 func GetCaptchaValue(id string) string {
 	reald := globalStore.Get(id, true)
+	fmt.Println(reald, "byte of real captcha")
 	return string(reald)
 }
 
