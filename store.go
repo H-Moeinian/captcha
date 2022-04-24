@@ -69,10 +69,10 @@ func (s *memoryStore) Set(id string, digits []byte) {
 		return
 	}
 	s.Unlock()
-	go s.collect()
 }
 
 func (s *memoryStore) Get(id string, clear bool) (digits []byte) {
+        s.collect()
 	if !clear {
 		// When we don't need to clear captcha, acquire read lock.
 		s.RLock()
