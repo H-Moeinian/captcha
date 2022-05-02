@@ -61,14 +61,13 @@ func NewMemoryStore(collectNum int, expiration time.Duration) Store {
 
 func (s *memoryStore) Set(id string, digits []byte) {
 	s.Lock()
+	defer s.Unlock()
+	if s.numStored >= s.collectNum {
+		s.collect()
+	}
 	s.digitsById[id] = digits
 	s.idByTime.PushBack(idByTimeValue{time.Now(), id})
 	s.numStored++
-	if s.numStored <= s.collectNum {
-		s.Unlock()
-		return
-	}
-	s.Unlock()
 }
 
 func (s *memoryStore) Get(id string, clear bool) (digits []byte) {
