@@ -138,11 +138,11 @@ func Verify(id string, digits []byte) (bool, error) {
 	}
 	reald := globalStore.Get(id, true)
 	if reald == nil {
-		return false, ,errors.New("captcha is expired")
+		return false, errors.New("captcha is expired")
 	}
 	for i := 0; i < len(reald); i++ {
 		if reald[i] != digits[i] {
-			return false, ,errors.New("bad captcha")
+			return false, errors.New("bad captcha")
 		}
 	}
 	return true, nil
