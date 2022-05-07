@@ -131,21 +131,21 @@ func WriteAudio(w io.Writer, id string, lang string) error {
 //
 // The function deletes the captcha with the given id from the internal
 // storage, so that the same captcha can't be verified anymore.
-func Verify(id string, digits []byte) (bool, error) {
+func Verify(id string, digits []byte) (bool , error) {
 
 	if digits == nil || len(digits) == 0 {
-		return false,errors.New("captcha is not filled")
+		return false , errors.New("captcha is not filled")
 	}
 	reald := globalStore.Get(id, true)
 	if reald == nil {
-		return false, errors.New("captcha is expired")
+		return false , errors.New("captcha is expired")
 	}
 	for i := 0; i < len(reald); i++ {
 		if reald[i] != digits[i] {
-			return false, errors.New("bad captcha")
+			return false , errors.New("bad captcha")
 		}
 	}
-	return true, nil
+	return true , nil
 }
 
 func GetCaptchaValue(id string) string {
