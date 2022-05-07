@@ -47,7 +47,6 @@ package captcha
 
 import (
 	"errors"
-	"fmt"
 	"io"
 	"time"
 )
