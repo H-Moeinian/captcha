@@ -145,7 +145,7 @@ func Verify(id string, digits []byte) (bool, error) {
 			return false, ,errors.New("bad captcha")
 		}
 	}
-	return true
+	return true, nil
 }
 
 func GetCaptchaValue(id string) string {
