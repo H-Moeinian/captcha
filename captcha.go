@@ -131,7 +131,7 @@ func WriteAudio(w io.Writer, id string, lang string) error {
 //
 // The function deletes the captcha with the given id from the internal
 // storage, so that the same captcha can't be verified anymore.
-func Verify(id string, digits []byte) bool, error {
+func Verify(id string, digits []byte) (bool, error) {
 
 	if digits == nil || len(digits) == 0 {
 		return false,errors.New("captcha is not filled")
