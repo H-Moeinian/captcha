@@ -66,18 +66,12 @@ func (s *memoryStore) Set(id string, digits []byte) {
 	s.digitsById[id] = digits
 	s.idByTime.PushBack(idByTimeValue{time.Now(), id})
 	s.numStored++
-
-	// var wg sync.WaitGroup
-	// wg.Add(1)
 	if s.numStored <= s.collectNum {
 		s.Unlock()
 		return
 	}
-	s.collect()
 	s.Unlock()
-	// s.Unlock()
-	// go s.collect2(&wg)
-	// wg.Wait()
+	go s.collect()
 }
 
 func (s *memoryStore) Get(id string, clear bool) (digits []byte) {
@@ -116,12 +110,13 @@ func (s *memoryStore) collect() {
 		}
 		if ev.timestamp.Add(s.expiration).Before(now) {
 			delete(s.digitsById, ev.id)
-			log.Info("########11#########", ev.id, "########11#########")
+			log.Info("****************** ev.id: ", ev.id, " ******************")
 			next := e.Next()
 			s.idByTime.Remove(e)
 			e = next
 			s.numStored--
 		} else {
+			log.Info("&&&&&&&&&&&&&&&&&& s.idByTime: ", s.idByTime, " &&&&&&&&&&&&&&&&&&")
 			return
 		}
 	}
