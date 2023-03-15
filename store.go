@@ -99,7 +99,7 @@ func (s *memoryStore) Get(id string, clear bool) (digits []byte) {
 }
 
 func (s *memoryStore) collect() {
-	log.Info("########00#########")
+	log.Info("################# len(s.digitsById): ", len(s.digitsById), " #################")
 	now := time.Now()
 	s.Lock()
 	defer s.Unlock()
